@@ -15,7 +15,7 @@ export const fetchNotes = async (params?: {
   const { data } = await api.get<{ notes: Note[] }>("/notes", { params });
   return data;
 };
-
+export const PER_PAGE = 12;
 export const fetchNoteById = async (id: string) => {
   const { data } = await api.get<Note>(`/notes/${id}`);
   return data;
