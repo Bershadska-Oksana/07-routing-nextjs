@@ -8,14 +8,32 @@ const api = axios.create({
   },
 });
 
-export const fetchNotes = async (params?: {
-  query?: string;
-  page?: number;
-}) => {
-  const { data } = await api.get<{ notes: Note[] }>("/notes", { params });
+export const PER_PAGE = 12;
+
+export const fetchNotes = async (
+  query: string = "",
+  tag: string | undefined = undefined,
+  page: number = 1,
+  perPage: number = PER_PAGE
+) => {
+  const params: Record<string, any> = {
+    query,
+    page,
+    perPage,
+  };
+
+  if (tag) {
+    params.tag = tag;
+  }
+
+  const { data } = await api.get<{ notes: Note[]; totalPages: number }>(
+    "/notes",
+    { params }
+  );
+
   return data;
 };
-export const PER_PAGE = 12;
+
 export const fetchNoteById = async (id: string) => {
   const { data } = await api.get<Note>(`/notes/${id}`);
   return data;
