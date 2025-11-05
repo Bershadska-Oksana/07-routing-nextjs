@@ -4,7 +4,7 @@ import {
   QueryClient,
 } from "@tanstack/react-query";
 import { fetchNotes, PER_PAGE } from "@/lib/api";
-import NotesClient from "./Notes.client";
+import NotesClient from "./NotesClient";
 import { NOTES_FILTER_ALL } from "@/lib/constants";
 
 interface Props {
