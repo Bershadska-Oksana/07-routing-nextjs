@@ -11,12 +11,12 @@ const api = axios.create({
 });
 
 export const fetchNotes = async (
-  query: string = "",
+  search: string = "",
   tag?: string,
   page: number = 1,
   perPage: number = PER_PAGE
 ) => {
-  const params: Record<string, any> = { query, page, perPage };
+  const params: Record<string, any> = { search, page, perPage };
   if (tag) params.tag = tag;
 
   const { data } = await api.get<{ notes: Note[]; totalPages: number }>(
@@ -31,9 +31,7 @@ export const fetchNoteById = async (id: string) => {
   return data;
 };
 
-export const createNote = async (
-  noteData: Pick<Note, "title" | "content" | "tag">
-) => {
+export const createNote = async (noteData: Omit<Note, "id">) => {
   const { data } = await api.post<Note>("/notes", noteData);
   return data;
 };
