@@ -31,7 +31,9 @@ export const fetchNoteById = async (id: string) => {
   return data;
 };
 
-export const createNote = async (noteData: Omit<Note, "id">) => {
+export const createNote = async (
+  noteData: Pick<Note, "title" | "content" | "tag">
+) => {
   const { data } = await api.post<Note>("/notes", noteData);
   return data;
 };
